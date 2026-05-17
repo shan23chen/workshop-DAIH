@@ -1,0 +1,1049 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="DAIH at COLM 2026: a workshop on deployment opportunities and risks for LLMs and VLMs in healthcare.">
+    <title>DAIH | COLM 2026 Workshop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --ink: #111713;
+        --ink-2: #1d2823;
+        --mist: #f3f0e8;
+        --paper: #fffdf8;
+        --line: rgba(17, 23, 19, 0.14);
+        --teal: #0f766e;
+        --blue: #335cbb;
+        --coral: #c34f60;
+        --gold: #b9831f;
+        --violet: #5b4ea1;
+        --green: #3b7a4a;
+        --muted: #64706a;
+        --white: #ffffff;
+        --shadow: 0 24px 80px rgba(17, 23, 19, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(17, 23, 19, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(17, 23, 19, 0.035) 1px, transparent 1px),
+          var(--mist);
+        background-size: 44px 44px;
+        font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+        line-height: 1.55;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(112deg, rgba(15, 118, 110, 0.13), transparent 36%),
+          linear-gradient(25deg, transparent 58%, rgba(195, 79, 96, 0.12));
+        z-index: -1;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .wrap {
+        width: min(1200px, calc(100% - 36px));
+        margin: 0 auto;
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        border-bottom: 1px solid var(--line);
+        background: rgba(243, 240, 232, 0.9);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav-inner {
+        min-height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        min-width: 0;
+      }
+
+      .logo {
+        width: 52px;
+        height: 52px;
+        position: relative;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        color: var(--paper);
+        background: var(--ink);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow: inset 0 0 0 8px rgba(255, 253, 248, 0.06);
+      }
+
+      .logo::before,
+      .logo::after {
+        content: "";
+        position: absolute;
+        width: 13px;
+        height: 13px;
+        border: 2px solid currentColor;
+      }
+
+      .logo::before {
+        left: 8px;
+        top: 8px;
+        border-right: 0;
+        border-bottom: 0;
+      }
+
+      .logo::after {
+        right: 8px;
+        bottom: 8px;
+        border-left: 0;
+        border-top: 0;
+      }
+
+      .logo span {
+        font-family: "Fraunces", serif;
+        font-size: 14px;
+        line-height: 1;
+      }
+
+      .brand-text {
+        display: grid;
+        line-height: 1.05;
+      }
+
+      .brand-text strong {
+        font-size: 18px;
+        letter-spacing: 0.04em;
+      }
+
+      .brand-text small {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: #3f4944;
+        font-size: 14px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .nav-links a {
+        padding: 10px 12px;
+        border-radius: 999px;
+      }
+
+      .nav-links a:hover {
+        background: rgba(17, 23, 19, 0.08);
+      }
+
+      .hero {
+        min-height: calc(100vh - 76px);
+        display: grid;
+        align-items: end;
+        overflow: hidden;
+        border-bottom: 1px solid var(--line);
+        background:
+          linear-gradient(126deg, rgba(17, 23, 19, 0.96) 0 56%, transparent 56%),
+          linear-gradient(90deg, #fbf7ef 0%, #f1ece1 100%);
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1.07fr) minmax(340px, 0.93fr);
+        gap: 44px;
+        align-items: stretch;
+        padding: 70px 0 34px;
+      }
+
+      .hero-copy-block {
+        color: var(--paper);
+        padding: 34px 0 44px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 22px;
+        color: #9fe2d9;
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 34px;
+        height: 2px;
+        background: currentColor;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        line-height: 1;
+      }
+
+      h1,
+      h2 {
+        font-family: "Fraunces", Georgia, serif;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        max-width: 900px;
+        font-size: clamp(50px, 8.8vw, 110px);
+      }
+
+      h2 {
+        font-size: clamp(34px, 5.3vw, 68px);
+      }
+
+      h3 {
+        font-size: 19px;
+      }
+
+      .hero-copy {
+        max-width: 670px;
+        margin: 26px 0 0;
+        color: rgba(255, 253, 248, 0.78);
+        font-size: clamp(18px, 1.8vw, 22px);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 18px;
+        border: 1px solid var(--ink);
+        background: var(--ink);
+        color: var(--paper);
+        border-radius: 999px;
+        font-weight: 900;
+      }
+
+      .button.light {
+        border-color: rgba(255, 253, 248, 0.8);
+        background: var(--paper);
+        color: var(--ink);
+      }
+
+      .button.ghost {
+        background: transparent;
+        color: inherit;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .identity-board {
+        align-self: end;
+        display: grid;
+        gap: 18px;
+      }
+
+      .identity-card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        padding: 28px;
+      }
+
+      .monogram {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        border: 1px solid var(--ink);
+      }
+
+      .monogram span {
+        min-height: 112px;
+        display: grid;
+        place-items: center;
+        border-right: 1px solid var(--ink);
+        border-bottom: 1px solid var(--ink);
+        font-family: "Fraunces", Georgia, serif;
+        font-size: clamp(46px, 7vw, 76px);
+        line-height: 1;
+      }
+
+      .monogram span:nth-child(2),
+      .monogram span:nth-child(4) {
+        border-right: 0;
+      }
+
+      .monogram span:nth-child(3),
+      .monogram span:nth-child(4) {
+        border-bottom: 0;
+      }
+
+      .monogram .d { color: var(--teal); }
+      .monogram .a { color: var(--coral); }
+      .monogram .i { color: var(--blue); }
+      .monogram .h { color: var(--gold); }
+
+      .identity-card p {
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border-top: 1px solid var(--line);
+      }
+
+      .stat {
+        padding: 22px;
+        background: rgba(255, 253, 248, 0.93);
+      }
+
+      .stat strong {
+        display: block;
+        color: var(--ink);
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 38px;
+        line-height: 1;
+      }
+
+      .stat span {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        font-weight: 800;
+        font-size: 13px;
+      }
+
+      section {
+        padding: 96px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.82fr) minmax(300px, 1.18fr);
+        gap: 52px;
+        align-items: start;
+        margin-bottom: 42px;
+      }
+
+      .section-head p {
+        margin: 0;
+        color: #35403a;
+        font-size: 18px;
+      }
+
+      .label {
+        display: block;
+        margin-bottom: 14px;
+        color: var(--teal);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .bar-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .bar-card {
+        position: relative;
+        min-height: 280px;
+        padding: 28px;
+        overflow: hidden;
+        background: var(--paper);
+        border: 1px solid var(--line);
+      }
+
+      .bar-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 7px;
+        background: var(--teal);
+      }
+
+      .bar-card:nth-child(2)::before { background: var(--coral); }
+      .bar-card:nth-child(3)::before { background: var(--blue); }
+
+      .bar-card .num {
+        color: rgba(17, 23, 19, 0.24);
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 58px;
+        line-height: 0.85;
+      }
+
+      .bar-card h3 {
+        margin-top: 22px;
+        max-width: 250px;
+      }
+
+      .bar-card p {
+        margin: 16px 0 0;
+        color: var(--muted);
+      }
+
+      .callout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.78fr) minmax(280px, 1.22fr);
+        gap: 28px;
+        margin-top: 24px;
+        padding: 30px;
+        color: var(--paper);
+        background:
+          linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+          linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+          var(--ink);
+        background-size: 28px 28px;
+      }
+
+      .callout h3 {
+        font-size: 24px;
+      }
+
+      .callout p {
+        margin: 0;
+        color: rgba(255, 253, 248, 0.78);
+      }
+
+      .timeline {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .deadline {
+        min-height: 170px;
+        padding: 25px;
+        border-right: 1px solid var(--line);
+      }
+
+      .deadline:last-child {
+        border-right: 0;
+      }
+
+      .deadline time {
+        display: block;
+        color: var(--blue);
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 31px;
+        line-height: 1.05;
+      }
+
+      .deadline span {
+        display: block;
+        color: var(--muted);
+        font-weight: 900;
+        margin-top: 10px;
+      }
+
+      .tracks {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      .track {
+        padding: 30px;
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      .track:nth-child(2) {
+        background: #233c57;
+      }
+
+      .track p {
+        color: rgba(255, 253, 248, 0.77);
+        margin-bottom: 0;
+      }
+
+      .support-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .support-card {
+        min-height: 180px;
+        padding: 24px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+      }
+
+      .support-card strong {
+        display: inline-grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        margin-bottom: 20px;
+        color: var(--paper);
+        background: var(--teal);
+        border-radius: 50%;
+      }
+
+      .support-card:nth-child(2) strong { background: var(--coral); }
+      .support-card:nth-child(3) strong { background: var(--blue); }
+      .support-card:nth-child(4) strong { background: var(--gold); }
+
+      .support-card p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .schedule {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 26px;
+      }
+
+      .schedule-column {
+        background: rgba(255, 253, 248, 0.82);
+        border: 1px solid var(--line);
+      }
+
+      .schedule-column h3 {
+        padding: 24px 24px 6px;
+      }
+
+      .slot {
+        display: grid;
+        grid-template-columns: 110px minmax(0, 1fr);
+        gap: 18px;
+        padding: 19px 24px;
+        border-top: 1px solid var(--line);
+      }
+
+      .slot time {
+        color: var(--muted);
+        font-weight: 900;
+      }
+
+      .slot strong,
+      .slot span {
+        display: block;
+      }
+
+      .slot span {
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      .people-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .person {
+        min-width: 0;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+
+      .person:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 46px rgba(17, 23, 19, 0.12);
+      }
+
+      .person-photo {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        background: #e2ded4;
+      }
+
+      .person-photo img {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+      }
+
+      .person-photo img.tight-crop {
+        width: 142%;
+        height: 142%;
+        max-width: none;
+        margin: -21%;
+      }
+
+      .person-body {
+        min-height: 144px;
+        padding: 17px;
+      }
+
+      .person p {
+        margin: 7px 0 14px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .person a {
+        color: var(--teal);
+        font-weight: 900;
+        font-size: 13px;
+      }
+
+      .sponsors {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .tier {
+        display: grid;
+        align-content: space-between;
+        min-height: 245px;
+        padding: 26px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-top: 7px solid var(--gold);
+      }
+
+      .tier:nth-child(2) { border-top-color: var(--blue); }
+      .tier:nth-child(3) { border-top-color: var(--teal); }
+      .tier:nth-child(4) { border-top-color: var(--coral); }
+
+      .tier strong {
+        display: block;
+        margin-top: 20px;
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 42px;
+        line-height: 1;
+      }
+
+      .tier p {
+        color: var(--muted);
+        margin: 12px 0 0;
+        font-size: 15px;
+      }
+
+      footer {
+        padding: 58px 0;
+        color: var(--paper);
+        background: var(--ink);
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 28px;
+        align-items: end;
+      }
+
+      footer p {
+        margin: 12px 0 0;
+        color: rgba(255, 253, 248, 0.72);
+      }
+
+      footer .button.ghost {
+        border-color: rgba(255, 253, 248, 0.5);
+        color: var(--paper);
+      }
+
+      @media (max-width: 1000px) {
+        .nav-inner {
+          min-height: auto;
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 15px 0;
+        }
+
+        .nav-links {
+          width: 100%;
+          overflow-x: auto;
+          padding-bottom: 3px;
+        }
+
+        .hero {
+          min-height: auto;
+          background:
+            linear-gradient(180deg, var(--ink) 0 68%, transparent 68%),
+            linear-gradient(90deg, #fbf7ef 0%, #f1ece1 100%);
+        }
+
+        .hero-inner,
+        .section-head,
+        .callout,
+        .schedule,
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .stat-grid,
+        .bar-grid,
+        .people-grid,
+        .sponsors,
+        .support-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .timeline {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .deadline:nth-child(2) {
+          border-right: 0;
+        }
+      }
+
+      @media (max-width: 650px) {
+        .wrap {
+          width: min(100% - 28px, 1200px);
+        }
+
+        .hero-inner {
+          padding-top: 42px;
+        }
+
+        .hero-copy-block {
+          padding-bottom: 22px;
+        }
+
+        .stat-grid,
+        .bar-grid,
+        .timeline,
+        .tracks,
+        .support-grid,
+        .people-grid,
+        .sponsors {
+          grid-template-columns: 1fr;
+        }
+
+        .deadline,
+        .deadline:nth-child(2) {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .deadline:last-child {
+          border-bottom: 0;
+        }
+
+        .slot {
+          grid-template-columns: 1fr;
+          gap: 5px;
+        }
+
+        section {
+          padding: 70px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="wrap nav-inner">
+        <a class="brand" href="#top" aria-label="DAIH workshop home">
+          <span class="logo" aria-hidden="true"><span>DAIH</span></span>
+          <span class="brand-text">
+            <strong>DAIH</strong>
+            <small>Deploying AI in Healthcare</small>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#submissions">Submissions</a>
+          <a href="#support">Support</a>
+          <a href="#schedule">Schedule</a>
+          <a href="#people">People</a>
+          <a href="#sponsors">Sponsors</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="top">
+      <header class="hero">
+        <div class="wrap hero-inner">
+          <div class="hero-copy-block">
+            <p class="eyebrow">COLM 2026 · October 9 · San Francisco</p>
+            <h1>DAIH: LLM/VLM Deployment Opportunities and Risks in Healthcare</h1>
+            <p class="hero-copy">A full-day workshop on what it actually takes to responsibly deploy language and vision-language models in clinical settings.</p>
+            <div class="hero-actions">
+              <a class="button light" href="#submissions">Submit Work</a>
+              <a class="button ghost" href="#support">Support Students</a>
+              <a class="button ghost" href="#schedule">View Schedule</a>
+            </div>
+          </div>
+          <aside class="identity-board" aria-label="DAIH identity and workshop highlights">
+            <div class="identity-card">
+              <div class="monogram" aria-label="DAIH">
+                <span class="d">D</span>
+                <span class="a">A</span>
+                <span class="i">I</span>
+                <span class="h">H</span>
+              </div>
+              <p>Deploying AI in Healthcare: a forum for the evaluation, governance, clinical workflow, and operational reality of foundation models in medicine.</p>
+            </div>
+            <div class="stat-grid">
+              <div class="stat"><strong>4</strong><span>invited speakers</span></div>
+              <div class="stat"><strong>5</strong><span>panelists</span></div>
+              <div class="stat"><strong>40+</strong><span>reviewers</span></div>
+              <div class="stat"><strong>2</strong><span>tracks</span></div>
+            </div>
+          </aside>
+        </div>
+      </header>
+
+      <section id="about">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <span class="label">Why DAIH</span>
+              <h2>Clinical AI Needs a Deployment Science</h2>
+            </div>
+            <p>Benchmark performance is a poor proxy for real-world readiness. DAIH brings together machine learning researchers, physicians, health-system leaders, and policy researchers to tackle safety, equity, privacy, regulation, workflow fit, and post-deployment monitoring.</p>
+          </div>
+          <div class="bar-grid">
+            <article class="bar-card">
+              <span class="num">01</span>
+              <h3>Know Whether It Is Safe</h3>
+              <p>Evaluation beyond benchmark accuracy, hallucination and failure characterization, and robustness under temporal and institutional shift.</p>
+            </article>
+            <article class="bar-card">
+              <span class="num">02</span>
+              <h3>Know Whether It Is Equitable</h3>
+              <p>Fairness across patient populations, privacy-preserving deployment, legal soundness, and emerging regulatory constraints.</p>
+            </article>
+            <article class="bar-card">
+              <span class="num">03</span>
+              <h3>Know Whether It Works</h3>
+              <p>Multimodal clinical applications, human-AI collaboration, operational lessons, and the practical reality of production deployment.</p>
+            </article>
+          </div>
+          <div class="callout">
+            <h3>Roundtables Built for Cross-Community Exchange</h3>
+            <p>Lunch discussions will be anchored by industry leaders, senior PIs, and physician-scientists, with tables focused on stakeholder needs, real deployment risks, liability and regulatory constraints, integration challenges, and research needs that rarely surface in benchmark papers.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="submissions">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <span class="label">Call for Papers</span>
+              <h2>Submissions</h2>
+            </div>
+            <p>We will solicit non-archival submissions through OpenReview using double-blind review. Review will emphasize relevance, rigor, clarity, clinical grounding, and value to a community trying to deploy responsibly.</p>
+          </div>
+          <div class="timeline" aria-label="Important dates">
+            <div class="deadline"><time datetime="2026-06-23">June 23</time><span>Submission deadline</span></div>
+            <div class="deadline"><time datetime="2026-07-10">July 10</time><span>Reviews due</span></div>
+            <div class="deadline"><time datetime="2026-07-17">July 17</time><span>Internal decision</span></div>
+            <div class="deadline"><time datetime="2026-07-24">July 24</time><span>Notification</span></div>
+          </div>
+          <div class="tracks">
+            <article class="track">
+              <h3>Research Papers</h3>
+              <p>Up to 8 pages excluding references. Technical work on evaluation, safety, robustness, multimodal modeling, fairness, privacy, governance, monitoring, or workflow integration.</p>
+            </article>
+            <article class="track">
+              <h3>Deployment Case Reports</h3>
+              <p>Up to 4 pages excluding references. Practical accounts from clinical, operational, or industry deployments, including work-in-progress, negative results, and lessons learned.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="support">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <span class="label">Student and Junior Researcher Support</span>
+              <h2>Making Participation Possible</h2>
+            </div>
+            <p>Sponsorship will directly support student travel awards, registration assistance, paper awards, poster-session infrastructure, and participation from clinicians, interdisciplinary teams, and researchers who might otherwise be underrepresented at COLM.</p>
+          </div>
+          <div class="support-grid">
+            <article class="support-card"><strong>1</strong><h3>Travel Awards</h3><p>Help students and early-career researchers attend DAIH in San Francisco.</p></article>
+            <article class="support-card"><strong>2</strong><h3>Registration Support</h3><p>Reduce participation barriers for trainees, clinicians, and interdisciplinary contributors.</p></article>
+            <article class="support-card"><strong>3</strong><h3>Paper Awards</h3><p>Recognize rigorous research, deployment case reports, negative results, and community value.</p></article>
+            <article class="support-card"><strong>4</strong><h3>Community Building</h3><p>Support roundtables, poster interactions, reviewer coordination, and junior researcher visibility.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="schedule">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <span class="label">Program</span>
+              <h2>Workshop Schedule</h2>
+            </div>
+            <p>A full-day program balancing invited talks, contributed spotlights, poster sessions, a structured roundtable lunch, and a deployment-focused panel.</p>
+          </div>
+          <div class="schedule">
+            <div class="schedule-column">
+              <h3>Morning</h3>
+              <div class="slot"><time>09:00</time><div><strong>Opening Remarks</strong><span>Organizers</span></div></div>
+              <div class="slot"><time>09:15</time><div><strong>Keynote: Sanmi Koyejo</strong><span>Trustworthy AI, evaluation, and socially responsible machine learning</span></div></div>
+              <div class="slot"><time>10:05</time><div><strong>Invited Talk: Danielle Bitterman</strong><span>LLM implementation and evaluation</span></div></div>
+              <div class="slot"><time>10:55</time><div><strong>Contributed Spotlights and Poster Session I</strong><span>Selected research and deployment reports</span></div></div>
+              <div class="slot"><time>12:00</time><div><strong>Invited Talk: Majid Afshar</strong><span>Building next-generation AI-native health systems</span></div></div>
+            </div>
+            <div class="schedule-column">
+              <h3>Midday and Afternoon</h3>
+              <div class="slot"><time>12:45</time><div><strong>Roundtable Lunch</strong><span>Stakeholder needs, deployment risks, industry constraints, and research needs</span></div></div>
+              <div class="slot"><time>14:00</time><div><strong>Invited Talk: Emma Pierson</strong><span>Clinical AI deployment across health institutions</span></div></div>
+              <div class="slot"><time>14:50</time><div><strong>Contributed Spotlights and Poster Session II</strong><span>Selected research and deployment reports</span></div></div>
+              <div class="slot"><time>16:05</time><div><strong>Panel Discussion</strong><span>Wei Liu, Corinna Loeckenhoff, Chufan Gao, Tymor Hamamsy or Martin Seneviratne, and Tristan Naumann</span></div></div>
+              <div class="slot"><time>17:15</time><div><strong>Closing Remarks</strong><span>Organizers</span></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="people">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <span class="label">Organizing Team</span>
+              <h2>People</h2>
+            </div>
+            <p>A cross-institutional team spanning medical AI, clinical NLP, human-AI interaction, safety, fairness, governance, and health-system deployment.</p>
+          </div>
+          <div class="people-grid">
+            <article class="person">
+              <div class="person-photo"><img src="https://healthy-ml.csail.mit.edu/author/yuexing-hao/avatar_hufb0354b64515bf810ad42f06c747f600_797369_270x270_fill_q90_lanczos_center.jpg" alt="Yuexing Hao"></div>
+              <div class="person-body"><h3>Yuexing Hao</h3><p>Microsoft · MIT · Mayo Clinic</p><a href="https://yuexinghao.github.io/Yuexing-Hao/">Profile</a></div>
+            </article>
+            <article class="person">
+              <div class="person-photo"><img src="assets/shan-chen.jpg" alt="Shan Chen"></div>
+              <div class="person-body"><h3>Shan Chen</h3><p>Phare Health · R1 RCM</p><a href="https://shanchen.dev/">Profile</a></div>
+            </article>
+            <article class="person">
+              <div class="person-photo"><img class="tight-crop" src="https://xiaoyuxin1002.github.io/images/profile.png" alt="Yuxin Xiao"></div>
+              <div class="person-body"><h3>Yuxin Xiao</h3><p>MIT IDSS</p><a href="https://xiaoyuxin1002.github.io/">Profile</a></div>
+            </article>
+            <article class="person">
+              <div class="person-photo"><img src="https://haoran.ca/static/mainsite/profile.jpg" alt="Haoran Zhang"></div>
+              <div class="person-body"><h3>Haoran Zhang</h3><p>MIT EECS</p><a href="https://haoran.ca/">Profile</a></div>
+            </article>
+            <article class="person">
+              <div class="person-photo"><img src="https://stellalisy.com/assets/images/my-avatar-prof1.png" alt="Stella Li"></div>
+              <div class="person-body"><h3>Stella Li</h3><p>University of Washington · Meta FAIR</p><a href="https://stellalisy.com/">Profile</a></div>
+            </article>
+            <article class="person">
+              <div class="person-photo"><img class="tight-crop" src="https://simons.berkeley.edu/sites/default/files/styles/post_card_lg_2x/public/profile_1_0.png.jpg?h=36d6755a&itok=NZpTLjGg" alt="Awa Dieng"></div>
+              <div class="person-body"><h3>Awa Dieng</h3><p>MIT EECS</p><a href="https://simons.berkeley.edu/people/awa-dieng">Profile</a></div>
+            </article>
+            <article class="person">
+              <div class="person-photo"><img src="https://api.dsi.virginia.edu/sites/default/files/styles/square_md/public/2023-09/hartvigsen.jpg" alt="Tom Hartvigsen"></div>
+              <div class="person-body"><h3>Tom Hartvigsen</h3><p>University of Virginia</p><a href="https://www.tomhartvigsen.com/">Profile</a></div>
+            </article>
+            <article class="person">
+              <div class="person-photo"><img src="https://med.stanford.edu/services/api/cap/profiles/photocache.67896.jpg" alt="Jason Fries"></div>
+              <div class="person-body"><h3>Jason Fries</h3><p>Stanford Medicine</p><a href="https://med.stanford.edu/profiles/jason-fries">Profile</a></div>
+            </article>
+            <article class="person">
+              <div class="person-photo"><img src="https://www.jackgallifant.com/jack-gallifant-headshot.jpg" alt="Jack Gallifant"></div>
+              <div class="person-body"><h3>Jack Gallifant</h3><p>Phare Health · R1 RCM</p><a href="https://www.jackgallifant.com/">Profile</a></div>
+            </article>
+            <article class="person">
+              <div class="person-photo"><img src="https://www.cs.cornell.edu/sites/default/files/2025-08/wang-angelina.jpg" alt="Angelina Wang"></div>
+              <div class="person-body"><h3>Angelina Wang</h3><p>Cornell University</p><a href="https://www.cs.cornell.edu/people/angelina-wang">Profile</a></div>
+            </article>
+            <article class="person">
+              <div class="person-photo"><img src="https://www.cs.washington.edu/wp-content/uploads/elementor/thumbs/portrait-yulia-tsvetkov-qszpx1pwb8uwji3b2t5bxtb8l7jj528h5ysblep6lc.jpg" alt="Yulia Tsvetkov"></div>
+              <div class="person-body"><h3>Yulia Tsvetkov</h3><p>University of Washington</p><a href="https://www.cs.washington.edu/people/faculty/yulia-tsvetkov/">Profile</a></div>
+            </article>
+            <article class="person">
+              <div class="person-photo"><img class="tight-crop" src="https://healthyml.org/media/marzyeh.png" alt="Marzyeh Ghassemi"></div>
+              <div class="person-body"><h3>Marzyeh Ghassemi</h3><p>MIT</p><a href="https://healthyml.org/marzyeh/">Profile</a></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="sponsors">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <span class="label">Sponsorship</span>
+              <h2>Sponsor Tiers</h2>
+            </div>
+            <p>DAIH sponsorship supports student travel, registration assistance, junior researcher visibility, paper awards, and a workshop format designed for serious cross-community exchange.</p>
+          </div>
+          <div class="sponsors">
+            <article class="tier"><div><h3>Diamond</h3><strong>$10K</strong></div><p>Premier support for student travel awards, programming, and community-building infrastructure.</p></article>
+            <article class="tier"><div><h3>Gold</h3><strong>$5K</strong></div><p>Major support for junior researcher participation, awards, and lunch roundtables.</p></article>
+            <article class="tier"><div><h3>Silver</h3><strong>$2.5K</strong></div><p>Targeted support for registration assistance, posters, and contributed spotlights.</p></article>
+            <article class="tier"><div><h3>Startup</h3><strong>$1K</strong></div><p>Accessible partner tier for early-stage teams supporting responsible healthcare deployment.</p></article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap footer-grid">
+        <div>
+          <h2>DAIH</h2>
+          <p>Deploying AI in Healthcare · COLM 2026 · October 9, 2026 · San Francisco</p>
+        </div>
+        <a class="button ghost" href="#top">Back to top</a>
+      </div>
+    </footer>
+  </body>
+</html>
