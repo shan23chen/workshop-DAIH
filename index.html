@@ -181,7 +181,8 @@
         align-items: end;
         overflow: hidden;
         border-bottom: 1px solid var(--line);
-        background: var(--ink);
+        background:
+          linear-gradient(90deg, var(--ink) 0 64%, #f4eee4 64% 100%);
       }
 
       .hero-inner {
@@ -198,10 +199,10 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        left: 58%;
-        width: 58vw;
+        left: 62%;
+        width: 44vw;
         background: linear-gradient(90deg, #fbf7ef 0%, #efe7dc 100%);
-        transform: skewX(-34deg);
+        transform: skewX(-24deg);
         transform-origin: top left;
         pointer-events: none;
       }
@@ -211,6 +212,7 @@
         z-index: 1;
         color: var(--paper);
         padding: 34px 0 44px;
+        background: var(--ink);
       }
 
       .eyebrow {
@@ -246,8 +248,8 @@
       }
 
       h1 {
-        max-width: 900px;
-        font-size: clamp(50px, 8.8vw, 110px);
+        max-width: 760px;
+        font-size: clamp(50px, 7vw, 92px);
       }
 
       h2 {
@@ -736,15 +738,16 @@
 
         .hero {
           min-height: auto;
-          background: var(--ink);
+          background:
+            linear-gradient(180deg, var(--ink) 0 70%, #f4eee4 70% 100%);
         }
 
         .hero-inner::before {
-          top: 64%;
-          left: -10%;
+          top: 70%;
+          left: -16%;
           width: 130%;
-          height: 42%;
-          transform: skewY(-7deg);
+          height: 36%;
+          transform: skewY(-5deg);
           transform-origin: top left;
         }
 
