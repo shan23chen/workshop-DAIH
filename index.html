@@ -684,33 +684,28 @@
 
       .sponsors {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 14px;
       }
 
-      .tier {
-        display: grid;
-        align-content: space-between;
-        min-height: 245px;
+      .sponsor-card {
         padding: 26px;
         background: var(--paper);
         border: 1px solid var(--line);
-        border-top: 7px solid var(--gold);
+        border-top: 7px solid var(--teal);
       }
 
-      .tier:nth-child(2) { border-top-color: var(--blue); }
-      .tier:nth-child(3) { border-top-color: var(--teal); }
-      .tier:nth-child(4) { border-top-color: var(--coral); }
+      .sponsor-card:nth-child(2) { border-top-color: var(--blue); }
 
-      .tier strong {
+      .sponsor-card strong {
         display: block;
         margin-top: 20px;
         font-family: "Fraunces", Georgia, serif;
-        font-size: 42px;
+        font-size: 34px;
         line-height: 1;
       }
 
-      .tier p {
+      .sponsor-card p {
         color: var(--muted);
         margin: 12px 0 0;
         font-size: 15px;
@@ -959,12 +954,12 @@
               <span class="label">Student and Junior Researcher Support</span>
               <h2>Making Participation Possible</h2>
             </div>
-            <p>Sponsorship will directly support student travel awards, registration assistance, paper awards, poster-session infrastructure, and participation from clinicians, interdisciplinary teams, and researchers who might otherwise be underrepresented at COLM.</p>
+            <p>Sponsorship will directly support student travel awards, registration assistance, paper prizes, poster-session infrastructure, and participation from clinicians, interdisciplinary teams, and researchers who might otherwise be underrepresented at COLM.</p>
           </div>
           <div class="support-grid">
             <article class="support-card"><strong>1</strong><h3>Travel Awards</h3><p>Help students and early-career researchers attend DAIH in San Francisco.</p></article>
             <article class="support-card"><strong>2</strong><h3>Registration Support</h3><p>Reduce participation barriers for trainees, clinicians, and interdisciplinary contributors.</p></article>
-            <article class="support-card"><strong>3</strong><h3>Paper Awards</h3><p>Recognize rigorous research, deployment case reports, negative results, and community value.</p></article>
+            <article class="support-card"><strong>3</strong><h3>Paper Prizes</h3><p>Recognize rigorous research, deployment case reports, negative results, and community value.</p></article>
             <article class="support-card"><strong>4</strong><h3>Community Building</h3><p>Support roundtables, poster interactions, reviewer coordination, and junior researcher visibility.</p></article>
           </div>
         </div>
@@ -1012,7 +1007,7 @@
           <div class="people-grid">
             <article class="person">
               <div class="person-photo"><img src="https://healthy-ml.csail.mit.edu/author/yuexing-hao/avatar_hufb0354b64515bf810ad42f06c747f600_797369_270x270_fill_q90_lanczos_center.jpg" alt="Yuexing Hao"></div>
-              <div class="person-body"><h3>Yuexing Hao</h3><p>Microsoft · MIT · Mayo Clinic</p><a href="https://yuexinghao.github.io/Yuexing-Hao/">Profile</a></div>
+              <div class="person-body"><h3>Yuexing Hao</h3><p>MIT · Microsoft · Mayo Clinic</p><a href="https://yuexinghao.github.io/Yuexing-Hao/">Profile</a></div>
             </article>
             <article class="person">
               <div class="person-photo"><img src="assets/shan-chen.jpg" alt="Shan Chen"></div>
@@ -1028,7 +1023,7 @@
             </article>
             <article class="person">
               <div class="person-photo"><img src="https://stellalisy.com/assets/images/my-avatar-prof1.png" alt="Stella Li"></div>
-              <div class="person-body"><h3>Stella Li</h3><p>University of Washington · Meta FAIR</p><a href="https://stellalisy.com/">Profile</a></div>
+              <div class="person-body"><h3>Stella Li</h3><p>University of Washington</p><a href="https://stellalisy.com/">Profile</a></div>
             </article>
             <article class="person">
               <div class="person-photo"><img class="tight-crop" src="https://simons.berkeley.edu/sites/default/files/styles/post_card_lg_2x/public/profile_1_0.png.jpg?h=36d6755a&itok=NZpTLjGg" alt="Awa Dieng"></div>
@@ -1067,15 +1062,13 @@
           <div class="section-head">
             <div>
               <span class="label">Sponsorship</span>
-              <h2>Sponsor Tiers</h2>
+              <h2>Sponsors</h2>
             </div>
-            <p>DAIH sponsorship supports student travel, registration assistance, junior researcher visibility, paper awards, and a workshop format designed for serious cross-community exchange.</p>
+            <p>DAIH sponsorship supports student travel, registration assistance, junior researcher visibility, paper prizes, and a workshop format designed for serious cross-community exchange. Confirmed sponsors will be listed here directly as support is finalized.</p>
           </div>
           <div class="sponsors">
-            <article class="tier"><div><h3>Diamond</h3><strong>$10K</strong></div><p>Premier support for student travel awards, programming, and community-building infrastructure.</p></article>
-            <article class="tier"><div><h3>Gold</h3><strong>$5K</strong></div><p>Major support for junior researcher participation, awards, and lunch roundtables.</p></article>
-            <article class="tier"><div><h3>Silver</h3><strong>$2.5K</strong></div><p>Targeted support for registration assistance, posters, and contributed spotlights.</p></article>
-            <article class="tier"><div><h3>Startup</h3><strong>$1K</strong></div><p>Accessible partner tier for early-stage teams supporting responsible healthcare deployment.</p></article>
+            <article class="sponsor-card"><h3>Confirmed Sponsors</h3><strong>Coming Soon</strong><p>We will list confirmed sponsors by recognition level after company approvals are complete.</p></article>
+            <article class="sponsor-card"><h3>Student Support</h3><strong>Travel and Prizes</strong><p>Sponsor support will prioritize student travel awards, registration assistance, paper prizes, and junior researcher participation.</p></article>
           </div>
         </div>
       </section>
