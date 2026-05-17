@@ -181,9 +181,7 @@
         align-items: end;
         overflow: hidden;
         border-bottom: 1px solid var(--line);
-        background:
-          linear-gradient(126deg, rgba(17, 23, 19, 0.96) 0 56%, transparent 56%),
-          linear-gradient(90deg, #fbf7ef 0%, #f1ece1 100%);
+        background: var(--ink);
       }
 
       .hero-inner {
@@ -192,9 +190,25 @@
         gap: 44px;
         align-items: stretch;
         padding: 70px 0 34px;
+        position: relative;
+      }
+
+      .hero-inner::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 58%;
+        width: 58vw;
+        background: linear-gradient(90deg, #fbf7ef 0%, #efe7dc 100%);
+        transform: skewX(-34deg);
+        transform-origin: top left;
+        pointer-events: none;
       }
 
       .hero-copy-block {
+        position: relative;
+        z-index: 1;
         color: var(--paper);
         padding: 34px 0 44px;
       }
@@ -278,8 +292,10 @@
       }
 
       .button.ghost {
-        background: transparent;
-        color: inherit;
+        background: rgba(255, 253, 248, 0.08);
+        color: var(--paper);
+        border-color: rgba(255, 253, 248, 0.54);
+        backdrop-filter: blur(10px);
       }
 
       .button:hover {
@@ -287,6 +303,8 @@
       }
 
       .identity-board {
+        position: relative;
+        z-index: 1;
         align-self: end;
         display: grid;
         gap: 18px;
@@ -718,9 +736,16 @@
 
         .hero {
           min-height: auto;
-          background:
-            linear-gradient(180deg, var(--ink) 0 68%, transparent 68%),
-            linear-gradient(90deg, #fbf7ef 0%, #f1ece1 100%);
+          background: var(--ink);
+        }
+
+        .hero-inner::before {
+          top: 64%;
+          left: -10%;
+          width: 130%;
+          height: 42%;
+          transform: skewY(-7deg);
+          transform-origin: top left;
         }
 
         .hero-inner,
@@ -998,7 +1023,7 @@
               <div class="person-body"><h3>Jason Fries</h3><p>Stanford Medicine</p><a href="https://med.stanford.edu/profiles/jason-fries">Profile</a></div>
             </article>
             <article class="person">
-              <div class="person-photo"><img src="https://www.jackgallifant.com/jack-gallifant-headshot.jpg" alt="Jack Gallifant"></div>
+              <div class="person-photo"><img src="assets/jack-gallifant.jpeg" alt="Jack Gallifant"></div>
               <div class="person-body"><h3>Jack Gallifant</h3><p>Phare Health · R1 RCM</p><a href="https://www.jackgallifant.com/">Profile</a></div>
             </article>
             <article class="person">
